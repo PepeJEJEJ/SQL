@@ -47,11 +47,12 @@ create table proyecto (
 );
 
 create table trabaja (
-	DNI int Primary Key,
-    id_proyecto int Primary Key,
+    DNI char(9),
+    id_proyecto int,
+	primary key (DNI, id_proyecto),
 	foreign key (DNI) references trabajador(DNI)
 	on delete set null,
-	foreign key (id) references proyecto(id)
+    foreign key (id_proyecto) references proyecto(id)
 	on delete set null
    	on update cascade
 );
