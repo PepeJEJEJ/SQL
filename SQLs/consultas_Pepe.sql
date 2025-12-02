@@ -126,67 +126,67 @@ select nombre from jugador where posicion = 'pivot' and salario > 100000;
 -- 7 Seleccionar el nombre de los jugadores de los equipos 1 y 2 que jueguen como base.
 select nombre from jugador where equipo in (1,2) and posicion = 'base';
 
--- Ej 8. datos de jugadores de equipos 1 y 2 con más de 80.000 euros
+-- 8 Datos de jugadores de equipos 1 y 2 con más de 80.000 euros
 select * from jugador where equipo in (1,2) and salario > 80000;
 
--- Ej 9. posiciones diferentes en la liga
+-- 9 Posiciones diferentes en la liga
 select distinct posicion from jugador;
 
--- Ej 10. los 5 jugadores más altos
+-- 10 Los 5 jugadores más altos
 select * from jugador order by altura desc limit 5;
 
--- Ej 11. salario neto anual (irpf 18%)
+-- 11 Salario neto anual (irpf 18%)
 select nombre, salario, salario*12*0.82 as salario_neto_anual from jugador;
 
--- Ej 12. jugadores con salario neto anual >= 70.000
+-- 12 Jugadores con salario neto anual >= 70.000
 select * from jugador where salario*12*0.82 >= 70000;
 
--- Ej 13. jugadores sin posición asignada
+-- 13 Jugadores sin posición asignada
 select * from jugador where posicion is null;
 
--- Ej 14. partidos jugados antes de 2012
+-- 14 Partidos jugados antes de 2012
 select * from partido where fecha < '2012-01-01';
 
--- Ej 15. jugadores que midan más de 1.90 y cobren más de 100.000
+-- 15 Jugadores que midan más de 1.90 y cobren más de 100.000
 select * from jugador where altura > 1.90 and salario > 100000;
 
 -- SEGUNDA RELACIÓN – Consultas de agregación y agrupación:
 
--- Ej 16. salario medio de todos los jugadores
+-- 1 Calcular el salario medio de todos los jugadores.
 select avg(salario) as salario_medio from jugador;
 
--- Ej 17. suma de alturas por equipo > 5 metros
+-- 2 Mostrar el id del equipo y la suma de las alturas de sus jugadores cuando esta suma supere los 5 metros.
 select equipo, sum(altura) as suma_alturas from jugador group by equipo having sum(altura) > 5;
 
--- Ej 18. cuántos jugadores miden más de dos metros
+-- 3 Calcular cuántos jugadores miden más de dos metros.
 select count(*) as jugadores_altos from jugador where altura > 2.00;
 
--- Ej 19. número de jugadores por posición en cada equipo
+-- 4 Mostrar para cada equipo cuántos jugadores están asignados a cada posición.
 select equipo, posicion, count(*) as cantidad from jugador group by equipo, posicion;
 
--- Ej 20. salario total por equipo con más de 4 jugadores
+-- 5 Mostrar el id del equipo y el salario total de cada equipo, pero solo para los equipos que tengan más de 4 jugadores registrados.
 select equipo, sum(salario) as salario_total from jugador group by equipo having count(*) > 4;
 
--- Ej 21. número de ciudades distintas con equipos
+-- 6 Calcular cuántas ciudades distintas tienen equipos registrados
 select count(distinct ciudad) as num_ciudades from equipo;
 
--- Ej 22. salario máximo, mínimo y diferencia por equipo
+-- 7 Mostrar para cada equipo el salario más alto, el más bajo y la diferencia entre ambos.
 select equipo, max(salario) as maximo, min(salario) as minimo, max(salario)-min(salario) as diferencia from jugador group by equipo;
 
--- Ej 23. salario medio por equipo > 100.000
+-- 8 Seleccionar el salario medio de cada equipo, pero únicamente para los equipos cuya media sea superior a 100000.
 select equipo, avg(salario) as salario_medio from jugador group by equipo having avg(salario) > 100000;
 
--- Ej 24. número de jugadores por equipo
+-- 9 Número de jugadores por equipo
 select equipo, count(*) as num_jugadores from jugador group by equipo;
 
--- Ej 25. altura media por equipo
+-- 10 Altura media por equipo
 select equipo, avg(altura) as altura_media from jugador group by equipo;
 
--- Ej 26. salario total por equipo
+-- 11 Salario total por equipo
 select equipo, sum(salario) as salario_total from jugador group by equipo;
 
--- Ej 27. equipos con altura media > 2 metros
+-- 12 Equipos con una altura media superior a 2 metros
 select equipo, avg(altura) as altura_media from jugador group by equipo having avg(altura) > 2.00;
 
--- Ej 28. jugador más alto por equipo
+-- 13 El jugador más alto por equipo (altura máxima)
 select equipo, max(altura) as jugador_mas_alto from jugador group by equipo;
