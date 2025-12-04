@@ -126,67 +126,85 @@ select nombre from jugador where posicion = 'pivot' and salario > 100000;
 -- 7 Seleccionar el nombre de los jugadores de los equipos 1 y 2 que jueguen como base.
 select nombre from jugador where equipo in (1,2) and posicion = 'base';
 
--- 8 Datos de jugadores de equipos 1 y 2 con más de 80.000 euros
+-- 8 Seleccionar los datos de jugadores de los equipos 1 y 2 que ganen más de 80.000 euros al mes.
 select * from jugador where equipo in (1,2) and salario > 80000;
 
--- 9 Posiciones diferentes en la liga
+-- 9 Listar las posiciones diferentes que pueden ocupar los jugadores en la liga.
 select distinct posicion from jugador;
 
--- 10 Los 5 jugadores más altos
+-- 10 Mostrar todos los datos de los 5 jugadores más altos.
 select * from jugador order by altura desc limit 5;
 
--- 11 Salario neto anual (irpf 18%)
+-- 11 Calcular en una columna llamada SALARIO NETO ANUAL el sueldo neto de cada jugador sabiendo que el IRPF del 18% deja un 82% del salario bruto.
 select nombre, salario, salario*12*0.82 as salario_neto_anual from jugador;
 
--- 12 Jugadores con salario neto anual >= 70.000
+-- 12 Seleccionar los datos de los jugadores cuyo salario neto anual sea al menos 70.000 euros.
 select * from jugador where salario*12*0.82 >= 70000;
 
--- 13 Jugadores sin posición asignada
+-- 13 Jugadores sin posición asignada (NULL)
 select * from jugador where posicion is null;
 
--- 14 Partidos jugados antes de 2012
-select * from partido where fecha < '2012-01-01';
+-- TERCERA RELACIÓN – Operadores y funciones
 
--- 15 Jugadores que midan más de 1.90 y cobren más de 100.000
-select * from jugador where altura > 1.90 and salario > 100000;
+-- 1. Mostrar los datos de los partidos jugados en el mes de febrero.
+select * from partido where extract(month from fecha) = 2;
 
--- SEGUNDA RELACIÓN – Consultas de agregación y agrupación:
+-- 2. Mostrar el nombre y apellido de cada jugador en una sola columna llamada “Nombre Completo”, en MAYÚSCULAS.
+select upper(concat(nombre, ' ', apellido)) as "Nombre Completo" from jugador;
 
--- 1 Calcular el salario medio de todos los jugadores.
-select avg(salario) as salario_medio from jugador;
+-- 3. Mostrar los enlaces de las webs de los equipos que NO contengan “www”.
+select web from equipo where web not like '%www%';
 
--- 2 Mostrar el id del equipo y la suma de las alturas de sus jugadores cuando esta suma supere los 5 metros.
-select equipo, sum(altura) as suma_alturas from jugador group by equipo having sum(altura) > 5;
+-- 4. Mostrar los datos de los equipos cuya web incluya la palabra “basket”.
+select * from equipo where web like '%basket%';
 
--- 3 Calcular cuántos jugadores miden más de dos metros.
-select count(*) as jugadores_altos from jugador where altura > 2.00;
+-- 5. Mostrar los enlaces de las webs de los equipos pero sin “http://”.
+select replace(web, 'http://', '') as web_sin_http from equipo;
 
--- 4 Mostrar para cada equipo cuántos jugadores están asignados a cada posición.
-select equipo, posicion, count(*) as cantidad from jugador group by equipo, posicion;
+-- 6. Consulta que devuelva esta frase:
+-- “El jugador con nombre y apellidos: Juan Carlos Navarro juega en la posición: escolta”.
+select 'El jugador con nombre y apellidos: Juan Carlos Navarro juega en la posición: escolta' as mensaje;
 
--- 5 Mostrar el id del equipo y el salario total de cada equipo, pero solo para los equipos que tengan más de 4 jugadores registrados.
-select equipo, sum(salario) as salario_total from jugador group by equipo having count(*) > 4;
+-- 7. Datos de los equipos cuyo nombre tenga 12 caracteres o menos.
+select * from equipo where length(nombre) <= 12;
 
--- 6 Calcular cuántas ciudades distintas tienen equipos registrados
-select count(distinct ciudad) as num_ciudades from equipo;
+-- 8. Datos de los jugadores que fueron dados de alta en 2008 o 2011.
+select * from jugador where extract(year from fecha_alta) in (2008, 2011);
 
--- 7 Mostrar para cada equipo el salario más alto, el más bajo y la diferencia entre ambos.
-select equipo, max(salario) as maximo, min(salario) as minimo, max(salario)-min(salario) as diferencia from jugador group by equipo;
+-- 9. Mostrar un listado de las páginas web de los equipos pero cambiando “http://” por “https://”.
+select replace(web, 'http://', 'https://') as web_segura from equipo;
 
--- 8 Seleccionar el salario medio de cada equipo, pero únicamente para los equipos cuya media sea superior a 100000.
-select equipo, avg(salario) as salario_medio from jugador group by equipo having avg(salario) > 100000;
+-- 10. Mostrar el nombre del jugador y su nombre invertido.
+select nombre, reverse(nombre) as nombre_invertido from jugador;
 
--- 9 Número de jugadores por equipo
-select equipo, count(*) as num_jugadores from jugador group by equipo;
+-- 11. Mostrar el nombre de los equipos rellenado por la izquierda hasta 20 caracteres con ‘*’.
+select lpad(nombre, 20, '*') as nombre_relleno from equipo;
 
--- 10 Altura media por equipo
-select equipo, avg(altura) as altura_media from jugador group by equipo;
+-- 12. Mostrar el apellido de los jugadores y sus 3 primeras letras.
+select apellido, substring(apellido, 1, 3) as iniciales from jugador;
 
--- 11 Salario total por equipo
-select equipo, sum(salario) as salario_total from jugador group by equipo;
+-- 13. Mostrar la posición en la que aparece la letra ‘a’ en el nombre del equipo.
+select nombre, position('a' in nombre) as posicion_a from equipo;
 
--- 12 Equipos con una altura media superior a 2 metros
-select equipo, avg(altura) as altura_media from jugador group by equipo having avg(altura) > 2.00;
+-- 14. Mostrar el nombre del jugador y un campo que indique:
+-- “Veterano” si fue dado de alta antes de 2010
+-- “Moderno” si fue dado de alta a partir de 2010 (usar case)
+select nombre, case when extract(year from fecha_alta) < 2010 then 'Veterano' else 'Moderno' end as categoria from jugador;
 
--- 13 El jugador más alto por equipo (altura máxima)
-select equipo, max(altura) as jugador_mas_alto from jugador group by equipo;
+-- 15. Mostrar los jugadores cuyo apellido termina en “ez”.
+select * from jugador where apellido like '%ez';
+
+-- 16. Mostrar los equipos ordenados por la longitud de su nombre.
+select nombre, length(nombre) as longitud from equipo order by longitud;
+
+-- 17. Mostrar el nombre del jugador completamente en minúsculas.
+select lower(nombre) as nombre_minusculas from jugador;
+
+-- 18. Mostrar el nombre del jugador y las 2 primeras letras de su apellido.
+select nombre, substring(apellido, 1, 2) as iniciales_apellido from jugador;
+
+-- 19. Mostrar el nombre del jugador y el año en el que fue dado de alta.
+select nombre, extract(year from fecha_alta) as anio_alta from jugador;
+
+-- 20. Mostrar nombre y apellido en una sola columna separados por un guion.
+select concat(nombre, '-', apellido) as nombre_completo from jugador;
