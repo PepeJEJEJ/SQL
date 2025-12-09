@@ -245,7 +245,7 @@ select lower(descripcion) as descripcion_minuscula from productos;
 
 -- Pepe
 -- 23) Nombre + dirección en mayúsculas en una columna llamada "Nombre_Completo"
-select id_cliente,upper(concat(nombre,' - ',direccion)) as nombre_completo from clientes;
+select upper(concat(nombre,' - ',direccion)) as nombre_completo from clientes;
 
 -- Pepe
 -- 24) Cambiar el formato de los nombres de productos para que comiencen con "Producto:" seguido de su descripción. Crear un alias Producto_Descripcion.
