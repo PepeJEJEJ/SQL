@@ -249,7 +249,7 @@ select upper(concat(nombre,' - ',direccion)) as nombre_completo from clientes;
 
 -- Pepe
 -- 24) Cambiar el formato de los nombres de productos para que comiencen con "Producto:" seguido de su descripción. Crear un alias Producto_Descripcion.
-select concat('Producto: ',descripcion) as producto_descripcion,id_producto,precio from productos;
+select concat('Producto: ',descripcion) as producto_descripcion from productos;
 
 -- Pepe
 -- 25) Extraer las tres primeras letras del nombre de cada país  de fabricantes:
@@ -257,7 +257,7 @@ select pais,substring(pais,1,3) as prefijo from fabricantes;
 
 -- Pepe
 -- 26) Reemplazar "Calle" por "Avda." en las direcciones de cliente
-select id_cliente,nombre,replace(direccion,'Calle','Avda.') as direccion_modificada from clientes;
+select replace(direccion,'Calle','Avda.') as direccion_modificada from clientes;
 
 -- Pepe
 -- 27) Calcular cuántos días han pasado desde cada pedido hasta hoy (función SYSDATE):
@@ -277,7 +277,7 @@ select * from pedidos where year(fecha_pedido)=2023;
 
 -- Pepe
 -- 31) Elevar el precio de cada producto al cuadrado
-select id_producto,precio,pow(precio,2) as precio_cuadrado from productos;
+select precio,pow(precio,2) as precio_cuadrado from productos;
 
 -- Pepe
 -- 32) Redondear el precio de cada producto a 1 decimal
