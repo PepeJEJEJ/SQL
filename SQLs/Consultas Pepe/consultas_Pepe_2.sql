@@ -241,7 +241,7 @@ select upper(nombre) as nombre_mayus from clientes;
 
 -- Pepe
 -- 22) Convertir descripciones de productos a minúsculas
-select id_producto,lower(descripcion) as descripcion_minus,precio from productos;
+select lower(descripcion) as descripcion_minuscula from productos;
 
 -- Pepe
 -- 23) Nombre + dirección en mayúsculas en una columna llamada "Nombre_Completo"
