@@ -237,7 +237,7 @@ select * from productos where descripcion like '%Portátil%';
 
 -- Pepe
 -- 21) Convertir nombres de clientes a mayúsculas
-select id_cliente,upper(nombre) as nombre_mayus,direccion,ciudad from clientes;
+select upper(nombre) as nombre_mayus from clientes;
 
 -- Pepe
 -- 22) Convertir descripciones de productos a minúsculas
