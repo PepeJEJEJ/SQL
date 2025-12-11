@@ -67,7 +67,7 @@ select * from productos order by precio asc limit 5;
 
 -- Pepe
 -- 17) Mostrar cuántos productos hay por fabricante
-select id_fab,count(*) as total_productos from productos group by id_fab;
+select id_fab,count(*) as total_productos from productos group by id_fab; -- contar los productos por categoria
 
 -- Pepe
 -- 18) Mostrar solo los fabricantes que tengan más de 1 producto
