@@ -166,5 +166,3 @@ insert into clientes (nombre, direccion, ciudad, telefono, email) values
 select * from clientes;
 
 select ciudad, count(*) from clientes group by ciudad;
-
-select * from partido where fecha > 2012-01-01;
