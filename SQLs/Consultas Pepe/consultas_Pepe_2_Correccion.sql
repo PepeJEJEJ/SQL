@@ -143,7 +143,7 @@ select id_cliente,nombre,reverse(nombre) as nombre_invertido from clientes;
 
 -- Pepe
 -- 36) Mostrar la longitud de cada nombre de cliente
-select id_cliente,nombre,char_length(nombre) as longitud from clientes;
+select id_cliente,nombre,length(nombre) as longitud from clientes;
 
 -- Pepe
 -- 37) Mostrar solo los 4 primeros caracteres del nombre del cliente
@@ -155,8 +155,12 @@ select id_producto,descripcion,precio,case when precio>=500 then 'CARO' else 'BA
 
 -- Pepe
 -- 39) Cantidad total de productos vendidos por cada producto
-select dp.id_producto,sum(dp.cant) as total_vendido from detalles_pedido dp group by dp.id_producto;
+select id_producto,sum(cant) as total_vendido from detalles_pedido dp group by id_producto;
 
 -- Pepe
 -- 40) Número de clientes por cada ciudad (Añade algo a la consulta para mostrar solo las ciudades que tengan más de un cliente)
 select ciudad,count(*) as num_clientes from clientes group by ciudad having count(*)>1;
+
+insert into clientes (nombre, direccion, ciudad, telefono, email) values
+('Pepe Arganda', 'Calle Huelma', 'Madrid', '123456789', 'carlos.fernandez@medac.es');
+select * from clientes;
