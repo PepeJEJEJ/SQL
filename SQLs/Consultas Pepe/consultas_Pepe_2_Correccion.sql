@@ -164,3 +164,5 @@ select ciudad,count(*) as num_clientes from clientes group by ciudad having coun
 insert into clientes (nombre, direccion, ciudad, telefono, email) values
 ('Pepe Arganda', 'Calle Huelma', 'Madrid', '123456789', 'carlos.fernandez@medac.es');
 select * from clientes;
+
+select ciudad, count(*) from clientes group by ciudad;
