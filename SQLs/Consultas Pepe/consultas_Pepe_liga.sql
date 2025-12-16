@@ -4,12 +4,12 @@
 -- SO del servidor:              debian-linux-gnu
 -- HeidiSQL Versión:             7.0.0.4320
 -- --------------------------------------------------------
-Drop database if exists liga;
-
+-- Jose A.
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+Drop database if exists liga;
 CREATE DATABASE `liga` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `liga`;
@@ -102,7 +102,91 @@ INSERT INTO `partido` VALUES (1,1,2,'100-100','2011-10-10','4\r'),(2,2,3,'90-91'
 /*!40000 ALTER TABLE `partido` ENABLE KEYS */;
 
 
-select * from partido where fecha > 2012-01-01;
+-- Consultas:
+-- PRIMERA RELACIÓN – Consultas básicas:
 
-select equipo, max(salario), min(salario) from jugador;
+-- 1 Obtener los datos de los jugadores del equipo 3 ordenados por su apellido.
+select * from jugador where equipo = 3 order by apellido;
 
+-- 2 Jugadores que sean escolta o alero.
+select * from jugador where posicion in ('escolta','alero');
+
+-- 3 Jugadores con salarios entre 60.000 y 100.000
+select * from jugador where salario between 60000 and 100000;
+
+-- 4 Obtener los datos de los jugadores que sean pívot ordenados por su identificador.
+select * from jugador where posicion = 'pivot' order by id_jugador;
+
+-- 5 Seleccionar los datos de los jugadores que midan más de dos metros y ganen al menos 50.000 euros.
+select * from jugador where altura > 2.00 and salario >= 50000;
+
+-- 6 Seleccionar el nombre de los jugadores que jueguen como pívot y ganen más de 100.000 euros.
+select nombre from jugador where posicion = 'pivot' and salario > 100000;
+
+-- 7 Seleccionar el nombre de los jugadores de los equipos 1 y 2 que jueguen como base.
+select nombre from jugador where equipo in (1,2) and posicion = 'base';
+
+-- 8 Datos de jugadores de equipos 1 y 2 con más de 80.000 euros
+select * from jugador where equipo in (1,2) and salario > 80000;
+
+-- 9 Posiciones diferentes en la liga
+select distinct posicion from jugador;
+
+-- 10 Los 5 jugadores más altos
+select * from jugador order by altura desc limit 5;
+
+-- 11 Salario neto anual (irpf 18%)
+select nombre, salario, salario*12*0.82 as salario_neto_anual from jugador;
+
+-- 12 Jugadores con salario neto anual >= 70.000
+select * from jugador where salario*12*0.82 >= 70000;
+
+-- 13 Jugadores sin posición asignada
+select * from jugador where posicion is null;
+
+-- 14 Partidos jugados antes de 2012
+select * from partido where fecha < '2012-01-01';
+
+-- 15 Jugadores que midan más de 1.90 y cobren más de 100.000
+select * from jugador where altura > 1.90 and salario > 100000;
+
+-- SEGUNDA RELACIÓN – Consultas de agregación y agrupación:
+
+-- 1 Calcular el salario medio de todos los jugadores.
+select avg(salario) as salario_medio from jugador;
+
+-- 2 Mostrar el id del equipo y la suma de las alturas de sus jugadores cuando esta suma supere los 5 metros.
+select equipo, sum(altura) as suma_alturas from jugador group by equipo having sum(altura) > 5;
+
+-- 3 Calcular cuántos jugadores miden más de dos metros.
+select count(*) as jugadores_altos from jugador where altura > 2.00;
+
+-- 4 Mostrar para cada equipo cuántos jugadores están asignados a cada posición.
+select equipo, posicion, count(*) as cantidad from jugador group by equipo, posicion;
+
+-- 5 Mostrar el id del equipo y el salario total de cada equipo, pero solo para los equipos que tengan más de 4 jugadores registrados.
+select equipo, sum(salario) as salario_total from jugador group by equipo having count(*) > 4;
+
+-- 6 Calcular cuántas ciudades distintas tienen equipos registrados
+select count(distinct ciudad) as num_ciudades from equipo;
+
+-- 7 Mostrar para cada equipo el salario más alto, el más bajo y la diferencia entre ambos.
+select equipo, max(salario) as maximo, min(salario) as minimo, max(salario)-min(salario) as diferencia from jugador group by equipo;
+
+-- 8 Seleccionar el salario medio de cada equipo, pero únicamente para los equipos cuya media sea superior a 100000.
+select equipo, avg(salario) as salario_medio from jugador group by equipo having avg(salario) > 100000;
+
+-- 9 Número de jugadores por equipo
+select equipo, count(*) as num_jugadores from jugador group by equipo;
+
+-- 10 Altura media por equipo
+select equipo, avg(altura) as altura_media from jugador group by equipo;
+
+-- 11 Salario total por equipo
+select equipo, sum(salario) as salario_total from jugador group by equipo;
+
+-- 12 Equipos con una altura media superior a 2 metros
+select equipo, avg(altura) as altura_media from jugador group by equipo having avg(altura) > 2.00;
+
+-- 13 El jugador más alto por equipo (altura máxima)
+select equipo, max(altura) as jugador_mas_alto from jugador group by equipo;
