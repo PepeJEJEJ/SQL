@@ -1,0 +1,41 @@
+Validación de metadatos → ❌ Incorrecta. El primer paso es la comprobación de sintaxis. Solo después se validan los metadatos.
+
+ADD COLUMN → ❌ Incorrecta. La sintaxis correcta es ALTER TABLE ADD. No existe un comando independiente "ADD COLUMN".
+
+Comprobación de sintaxis → ❌ Incorrecta. Ese paso es el primero. Después de la validación de metadatos, lo que sigue es la optimización de la consulta.
+
+VARCHAR2 → ❌ Incorrecta. El tipo que permite hasta 8GB es BFILE (CLOB/BLOB hasta 4GB, BFILE hasta 8GB).
+
+WHERE → ❌ Incorrecta. WHERE filtra filas individuales. Para aplicar condiciones sobre grupos se usa HAVING.
+
+SELECT * 
+FROM jugador 
+WHERE posicion IN ('escolta', 'alero');
+
+SELECT * 
+FROM jugador 
+WHERE posicion = 'escolta' 
+   OR posicion = 'alero';
+
+SELECT 
+    nombre,
+    apellido,
+    salario,
+    salario * 0.82 AS SALARIO_NETO_ANUAL
+FROM jugador;
+
+SELECT 
+    UPPER(CONCAT(nombre, ' ', apellido)) AS Nombre_Completo
+FROM jugador;
+
+SELECT 
+    *,
+    CASE 
+        WHEN fecha_alta > '2010-01-01' THEN 'Veterano'
+        ELSE 'Moderno'
+    END AS Categoria
+FROM jugador;
+
+SELECT 
+    REPLACE(SUBSTRING(web, 8), 'basket', 'baloncesto') AS Web_Modificada
+FROM equipo;
