@@ -43,4 +43,7 @@ Select * from productos where precio between 200 and 800;
 select * from productos order by precio desc limit 1;
 
 -- 12.
-sEÑECT *,round(precio,0) as precio_redondeado from productos;
+select *,round(precio,0) as precio_redondeado from productos;
+
+-- 14
+Select *, case when existencias >=30 then 'muchas' WHEN existencias <10 then 'pocas' else 'suficientes' end as rango from productos;
