@@ -35,3 +35,12 @@ Select min(fecha_pedido) as pedido_antiguo from pedidos;
 
 -- 9.
 Select pais,count(*) from fabricantes group by pais;
+
+-- 10.
+Select * from productos where precio between 200 and 800;
+
+-- 11.
+select * from productos order by precio desc limit 1;
+
+-- 12.
+sEÑECT *,round(precio,0) as precio_redondeado from productos;
