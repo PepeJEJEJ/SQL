@@ -18,7 +18,7 @@ SELECT Nombre FROM Clientes WHERE Telefono LIKE '%56%';
 
 -- Pepe
 -- 5. Estados de todos los pedidos ✅
-SELECT Estado FROM Pedidos;
+SELECT distinct Estado FROM Pedidos;
 
 -- Pepe
 -- 6. Pedidos realizados en enero (mes 1) ✅
