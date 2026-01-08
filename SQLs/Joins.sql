@@ -31,3 +31,9 @@ select i.dni, sum(a.creditos) as total_creditos from asignaturas a join imparte 
 -- Unimos profesores (p) con imparte (i) usando el dni.
 -- Contamos cuántas asignaturas tiene cada profesor.
 select p.nombre, count(i.asignatura) as num_asignaturas from profesores p join imparte i on p.dni = i.dni group by p.nombre;
+
+-- 5. Mostrar el nombre del profesor y la descripción de la asignatura que imparte
+-- Aquí mostramos el nombre del profesor y la descripción de cada asignatura que imparte.
+-- Unimos profesores (p), imparte (i) y asignaturas (a) mediante el dni y el código de asignatura.
+select p.nombre, a.descripcion from profesores p join imparte i on p.dni = i.dni join asignaturas a on a.codigo = i.asignatura;
+
