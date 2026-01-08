@@ -13,8 +13,21 @@ select * from profesores;
 select i.dni, a.descripcion from asignaturas a join imparte i on a.codigo=i.asignatura;
 
 -- 2. Muestra los datos de los profes que imparten alguna asignatura
--- Aca seleccionamos a los profesores y usamos un join entre 
+-- Aquí seleccionamos todas las columnas de profesores (p) y de imparte (i). 
+-- Para ello hacemos un JOIN entre ambas tablas usando el dni como clave común.
 select * from profesores p join imparte i on p.dni=i.dni;
 
 select * from profesores, asignaturas;
 select * from profesores cross join imparte;
+
+-- 3. Suma de créditos que imparte cada profesor según su DNI
+-- Aquí calculamos la suma total de créditos que imparte cada profesor.
+-- Unimos asignaturas (a) con imparte (i) usando el código de la asignatura.
+-- Agrupamos por dni para obtener la suma por profesor.
+select i.dni, sum(a.creditos) as total_creditos from asignaturas a join imparte i on a.codigo = i.asignatura group by i.dni;
+
+-- 4. Mostrar el nombre de los profesores y cuántas asignaturas imparte cada uno
+-- Aquí mostramos el nombre del profesor y cuántas asignaturas imparte.
+-- Unimos profesores (p) con imparte (i) usando el dni.
+-- Contamos cuántas asignaturas tiene cada profesor.
+select p.nombre, count(i.asignatura) as num_asignaturas from profesores p join imparte i on p.dni = i.dni group by p.nombre;
