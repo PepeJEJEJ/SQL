@@ -42,7 +42,8 @@ select p.nombre, a.descripcion from profesores p join imparte i on p.dni = i.dni
 select dni, nombre, descripcion from coordinadores c join asignaturas a on (c.asig=a.codigo);
 
 -- Dni del profe y suma de los creditos que prepara
-select p.dni, sum(a.creditos) as total_creditos_preparados from prepara p join asignaturas a on p.asignatura = a.codigo group by p.dni;
+-- aca lo que hacemos es seleccionar
+select dni, sum(a.creditos) from prepara p join asignaturas a on p.asignatura = a.codigo group by p.dni;
 
 
 -- PURGADO:
