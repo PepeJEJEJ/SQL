@@ -45,6 +45,9 @@ select dni, nombre, descripcion from coordinadores c join asignaturas a on (c.as
 -- aca lo que hacemos es seleccionar
 select dni, sum(a.creditos) from prepara p join asignaturas a on p.asignatura = a.codigo group by p.dni;
 
+-- Left y rigth join
+select * from profesores p left join imparte i on (p.dni=i.dni);
+select * from profesores p right join imparte i on (p.dni=i.dni);
 
 -- PURGADO:
 -- INNER JOIN: solo profesores que imparten alguna asignatura
