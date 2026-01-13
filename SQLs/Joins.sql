@@ -37,6 +37,32 @@ select p.nombre, count(i.asignatura) as num_asignaturas from profesores p join i
 -- Unimos profesores (p), imparte (i) y asignaturas (a) mediante el dni y el código de asignatura.
 select p.nombre, a.descripcion from profesores p join imparte i on p.dni = i.dni join asignaturas a on a.codigo = i.asignatura;
 
+<<<<<<< HEAD
 -- DNI y nombre del coordinador y el nombre de la asignatura que coordina
 -- Unir la de coordinadores y asignaturas
 select dni, nombre, descripcion from coordinadores c join asignaturas a on (c.asig=a.codigo);
+=======
+
+
+-- Joins varios:
+select *
+from profesores p
+inner join imparte i on p.dni = i.dni;
+
+select *
+from profesores p
+left join imparte i on p.dni = i.dni;
+
+select *
+from profesores p
+right join imparte i on p.dni = i.dni;
+
+select *
+from profesores
+cross join asignaturas;
+
+on p.dni = i.dni
+
+from profesores p
+join imparte i
+>>>>>>> 523873917a11f64e6f12a8f4caa2a838aedf8781
