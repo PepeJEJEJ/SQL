@@ -105,3 +105,6 @@ select descripcion from asignaturas where creditos = (select max(creditos)from a
 
 -- tambien se puede hacer asi:
 select descripcion from asignaturas where creditos >= ALL (select creditos from asignaturas);
+
+-- y asi tambien:
+select * from asignaturas where creditos > any (select creditos from asignaturas);
