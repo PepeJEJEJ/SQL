@@ -78,3 +78,5 @@ SELECT *
 FROM profesores p
 JOIN imparte i
     ON p.dni = i.dni;
+    
+select dni, sum(creditos) from asignaturas a join imparte i on i.asignatura = a.codigo group by dni;
