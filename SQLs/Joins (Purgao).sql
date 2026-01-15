@@ -102,3 +102,6 @@ select * from asignaturas;
 -- Mostrar la descripción de las asignaturas que tengan el mayor número de créditos
 select descripcion from asignaturas where creditos = (select max(creditos)from asignaturas);
 -- MAX devuelve el valor MAXIMO de una columna de numeros
+
+-- tambien se puede hacer asi:
+select descripcion from asignaturas where creditos >= ALL (select creditos from asignaturas);
