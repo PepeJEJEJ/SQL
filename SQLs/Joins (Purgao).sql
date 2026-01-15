@@ -98,3 +98,7 @@ SELECT id_producto FROM almacen2;*/
 -- subconsultas
 select * from asignaturas where creditos > (select creditos from asignaturas where codigo = "PC");
 
+select * from asignaturas;
+-- Mostrar la descripción de las asignaturas que tengan el mayor número de créditos
+select descripcion from asignaturas where creditos = (select max(creditos)from asignaturas);
+-- MAX devuelve el valor MAXIMO de una columna de numeros
