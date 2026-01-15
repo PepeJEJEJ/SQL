@@ -85,3 +85,12 @@ select * from profesores p left join imparte i on (p.dni=i.dni);
 select * from imparte i right join profesores p on (p.dni=i.dni);
 
 select * from prepara pr join profesores p on (pr.dni=p.dni);
+
+/* NO SALE INTERSECT
+SELECT id_producto FROM almacen1
+INTERSECT
+SELECT id_producto FROM almacen2;
+MINUS / EXCEPT
+SELECT id_producto FROM almacen1
+MINUS
+SELECT id_producto FROM almacen2;*/
