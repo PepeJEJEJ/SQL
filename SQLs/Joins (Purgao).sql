@@ -94,3 +94,7 @@ MINUS / EXCEPT
 SELECT id_producto FROM almacen1
 MINUS
 SELECT id_producto FROM almacen2;*/
+
+-- subconsultas
+select * from asignaturas where creditos > (select creditos from asignaturas where codigo = "PC");
+
